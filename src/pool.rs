@@ -96,9 +96,9 @@ impl ThreadPool {
         for idx in 0..size {
             let state = pool.state.clone();
 
-            let mut opts = WorkerOptions::new();
-            opts.type_(WorkerType::Module);
-            opts.name(&*format!("Worker-{}", idx));
+            let opts = WorkerOptions::new();
+            opts.set_type(WorkerType::Module);
+            opts.set_name(&*format!("Worker-{}", idx));
 
             // With a worker spun up send it the module/memory so it can start
             // instantiating the wasm module. Later it might receive further
