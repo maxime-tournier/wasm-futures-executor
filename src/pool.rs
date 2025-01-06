@@ -58,7 +58,7 @@ impl LoaderHelper {
     pub fn main_js(&self) -> JsString {
         #[wasm_bindgen]
         extern "C" {
-            #[wasm_bindgen(thread_local, js_namespace = ["import", "meta"], js_name = url)]
+            #[wasm_bindgen(thread_local_v2, js_namespace = ["import", "meta"], js_name = url)]
             static URL: JsString;
         }
 
@@ -121,7 +121,7 @@ impl ThreadPool {
     pub async fn max_threads() -> Result<Self, JsValue> {
         #[wasm_bindgen]
         extern "C" {
-            #[wasm_bindgen(thread_local, js_namespace = navigator, js_name = hardwareConcurrency)]
+            #[wasm_bindgen(thread_local_v2, js_namespace = navigator, js_name = hardwareConcurrency)]
             static HARDWARE_CONCURRENCY: usize;
         }
         let pool_size = std::cmp::max(HARDWARE_CONCURRENCY.with(|x| *x), 1);
